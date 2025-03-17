@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "maxscaler: show active servers",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "maxctrl list servers",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "maxscaler: put server in maintenance",
+      "description": "This will cause MariaDB MaxScale to stop routing any new requests to the server, \nhowever if there are currently requests executing on the server these will not be interrupted.",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "maxctrl set server $(maxctrl list servers --tsv | awk '{print $1}' | fzf) maintenance && maxctrl list servers",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "maxscaler: UNmaintenance server",
+      "description": "Shows servers in maintenance, puts them back in production",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "maxctrl clear server $(maxctrl list servers --tsv | grep 'Maintenance' | awk '{print $1}' | fzf) maintenance && maxctrl list servers",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}
