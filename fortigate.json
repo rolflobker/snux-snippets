@@ -1,0 +1,31 @@
+{
+  "schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "fortigate: debug flow trace",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "IP: ",
+          "variable_name": "IP"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "diagnose debug flow filter addr %{IP}",
+          "enter": true
+        },
+        {
+          "action": "send-to-pane",
+          "code": "diagnose debug enable",
+          "enter": true
+        },
+        {
+          "action": "send-to-pane",
+          "code": "diagnose debug flow trace start 100",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}

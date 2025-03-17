@@ -1,0 +1,29 @@
+{
+  "schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "apache: Block GPTbot on ALL .htaccess files found in /var/www/* (3 levels deep)",
+      "tags": ["apache"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "find /var/www/* -maxdepth 3 -type f -name '.htaccess' -exec sed -i '/RewriteEngine on/a \\RewriteCond {HTTP_USER_AGENT} GPTBot [NC]\\nRewriteRule ^ - [F,L]' {} \\;",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "apache: count all unique user agents (depends on config layout)",
+      "tags": ["apache"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "awk -NF '\"' '{print $3}' /var/log/apache2/*.log | sort | awk '{$1 = \"\"; $2 = \"\"; print $0;}' | sort | uniq -c | sort -h",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "gitlab: get gitlab-ce version",
+      "description": "see title",
+      "tags": ["gitlab"],
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "gitlab-rake gitlab:env:info",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "chrome: Clear active session lock",
+      "description": "see title",
+      "tags": ["chrome"],
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "rm $HOME/.config/chromium/Singleton*",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "[shell] journalctl since 2 days ago",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "journalctl --since '2 days ago'",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "[shell] unset HISTFILE",
+      "description": "adasd",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "unset HISTFILE",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "files: NCDU root exclude system and other FS",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "ncdu / -x --exclude /sys --exclude /proc --exclude /run --exclude /dev --exclude /boot --exclude /mnt --exclude /media",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}

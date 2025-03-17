@@ -1,0 +1,24 @@
+{
+  "schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "tmux: start capturing pane",
+      "description": "Write a local logfile with all pane output",
+      "commands": [
+        {
+          "action": "pipe-pane-start",
+          "output-filename": "/tmp/pane_capture.log"
+        }
+      ]
+    },
+    {
+      "title": "tmux: stop capturing pane",
+      "description": "Write a local logfile with all pane output",
+      "commands": [
+        {
+          "action": "pipe-pane-stop"
+        }
+      ]
+    }
+  ]
+}

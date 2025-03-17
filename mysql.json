@@ -1,0 +1,226 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "mysql: dump table schemas for given database",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "databasename: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"use %{db_name}; show full tables\" | grep 'BASE TABLE' | sed 's/ *BASE TABLE//' | sed 's/[[:space:]]*$//' | xargs -I {} bash -c \"mysqldump --no-data %{db_name} '{}' > ./table_{}.sql\"",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Show all table sizes for given database",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "SELECT table_name, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '%{db_name}';",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Dump table to gzipped file",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "ask",
+          "prompt": "table: ",
+          "variable_name": "table_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysqldump --opt --hex-blob %{db_name} %{table_name} | pv | gzip -c > %{db_name}_%{table_name}.sql.gz",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Dump database to gzipped file",
+      "tags": ["mysql"],
+      "description": "--opt includes good defaults, --hex-blob converts binary data to hex strings (prevents corruption of binary data)",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysqldump --opt --hex-blob %{db_name} | pv | gzip -c > %{db_name}.sql.gz",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Dump table structure to file",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "ask",
+          "prompt": "table: ",
+          "variable_name": "table_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysqldump --no-data %{db_name} %{table_name}",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Get auto_increment for table",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "ask",
+          "prompt": "table: ",
+          "variable_name": "table_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT auto_increment FROM information_schema.tables WHERE table_name = '%{table_name}' AND table_schema = '%{db_name}' ;\"",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: List stored procedures for given database",
+      "tags": ["mysql"],
+      "description": "list stored procedures",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "database: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT ROUTINE_NAME FROM information_schema.ROUTINES WHERE ROUTINE_TYPE = 'PROCEDURE' AND ROUTINE_SCHEMA = '%{db_name}';\"",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: tel records ouder dan 6 maand op tabel",
+      "tags": ["mysql"],
+      "description": "tel records",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "db name: ",
+          "variable_name": "db_name"
+        },
+        {
+          "action": "ask",
+          "prompt": "table name: ",
+          "variable_name": "table_name"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT COUNT(*) FROM %{db_name}.%{table_name} WHERE created_at < NOW() - INTERVAL 6 MONTH;\"",
+          "enter": false
+        }
+      ]
+    },
+    {
+      "title": "mysql: Galera statistics",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SHOW VARIABLES LIKE 'wsrep%';\"",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: TOP 10 Slack in ALL tables and databases",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT table_name, table_rows,data_length,index_length, ROUND(data_free/1000000,2) AS data_free_MB FROM information_schema.tables ORDER BY data_free DESC LIMIT 10;\"",
+          "enter": true
+        },
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT table_schema, ROUND(SUM(data_free)/1000000,2) FROM information_schema.tables GROUP BY table_schema ORDER BY SUM(data_free) DESC LIMIT 10;\"",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: Galera status",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SHOW STATUS LIKE 'wsrep%';\"",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: Top 10 van tabellen alle databases",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e 'SELECT table_schema as \"Database\", table_name AS \"Table\", round(((data_length + index_length) / 1024 / 1024), 2) \"Size in MB\" FROM information_schema.TABLES ORDER BY (data_length + index_length) DESC LIMIT 0,10;'",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: check readonly status",
+      "tags": ["mysql"],
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SELECT @@global.read_only\"",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}
