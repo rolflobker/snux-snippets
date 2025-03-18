@@ -221,6 +221,28 @@
           "enter": true
         }
       ]
+    },
+    {
+      "title": "mysql: get innodb_log information",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "mysql -e \"SHOW GLOBAL VARIABLES LIKE '%innodb_log%';\"",
+          "enter": true
+        }
+      ]
+    },
+    {
+      "title": "mysql: measure innodb_log increase rate (over 30 seconds)",
+      "description": "measure redo log growth rate",
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "start=$(mysql -e \"SHOW ENGINE INNODB STATUS\\G\" | grep 'Log sequence number' | sed 's/Log sequence number //'); sleep 30; end=$(mysql -e \"SHOW ENGINE INNODB STATUS\\G\" | grep 'Log sequence number' | sed 's/Log sequence number //'); diff=$(( end - start)); bytes_sec=$(( $diff / 30)); mb_sec=$(awk \"BEGIN {printf \\\\\"%.2f\\\\\", $bytes_sec / 1048576}\"); echo \"Over 30 seconds; bytes: $diff, bytes/sec: $bytes_sec, or $mb_sec MB/s\"",
+          "enter": true
+        }
+      ]
     }
   ]
 }
