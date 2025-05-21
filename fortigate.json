@@ -2,6 +2,74 @@
   "schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
   "snippets": [
     {
+      "title": "Fortigate: look up policy for given source and destination IP and port (TCP)",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "Source IP: ",
+          "variable_name": "source_ip"
+        },
+        {
+          "action": "ask",
+          "prompt": "Destination IP: ",
+          "variable_name": "dest_ip"
+        },
+        {
+          "action": "ask",
+          "prompt": "Port: ",
+          "variable_name": "port"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "diagnose firewall iprope lookup %{source_ip} %{dest_ip} 6 %{port}",
+          "enter": "false"
+        }
+      ]
+    },
+    {
+      "title": "Fortigate: look up policy for given source and destination IP and port (UDP)",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "Source IP: ",
+          "variable_name": "source_ip"
+        },
+        {
+          "action": "ask",
+          "prompt": "Destination IP: ",
+          "variable_name": "dest_ip"
+        },
+        {
+          "action": "ask",
+          "prompt": "Port: ",
+          "variable_name": "port"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "diagnose firewall iprope lookup %{source_ip} 12345 %{dest_ip} 6 %{port}",
+          "enter": "false"
+        }
+      ]
+    },
+    {
+      "title": "Fortigate: look up policy referencing specific IP (using grep)",
+      "description": "see title",
+      "commands": [
+        {
+          "action": "ask",
+          "prompt": "IP: ",
+          "variable_name": "ip"
+        },
+        {
+          "action": "send-to-pane",
+          "code": "show firewall policy | grep -f \"%{ip}\"",
+          "enter": "false"
+        }
+      ]
+    },
+    {
       "title": "fortigate: debug flow trace",
       "description": "see title",
       "commands": [

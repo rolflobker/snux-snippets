@@ -3,7 +3,9 @@
   "snippets": [
     {
       "title": "mysql: dump table schemas for given database",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -20,7 +22,9 @@
     },
     {
       "title": "mysql: Show all table sizes for given database",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -37,7 +41,9 @@
     },
     {
       "title": "mysql: Dump table to gzipped file",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -59,7 +65,9 @@
     },
     {
       "title": "mysql: Dump database to gzipped file",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "--opt includes good defaults, --hex-blob converts binary data to hex strings (prevents corruption of binary data)",
       "commands": [
         {
@@ -76,7 +84,9 @@
     },
     {
       "title": "mysql: Dump table structure to file",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -98,7 +108,9 @@
     },
     {
       "title": "mysql: Get auto_increment for table",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -120,7 +132,9 @@
     },
     {
       "title": "mysql: List stored procedures for given database",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "list stored procedures",
       "commands": [
         {
@@ -137,7 +151,9 @@
     },
     {
       "title": "mysql: tel records ouder dan 6 maand op tabel",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "tel records",
       "commands": [
         {
@@ -159,7 +175,9 @@
     },
     {
       "title": "mysql: Galera statistics",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -171,7 +189,9 @@
     },
     {
       "title": "mysql: TOP 10 Slack in ALL tables and databases",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -188,7 +208,9 @@
     },
     {
       "title": "mysql: Galera status",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -200,7 +222,9 @@
     },
     {
       "title": "mysql: Top 10 van tabellen alle databases",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -212,7 +236,9 @@
     },
     {
       "title": "mysql: check readonly status",
-      "tags": ["mysql"],
+      "tags": [
+        "mysql"
+      ],
       "description": "see title",
       "commands": [
         {
@@ -228,7 +254,7 @@
       "commands": [
         {
           "action": "send-to-pane",
-          "code": "mysql -e \"SHOW GLOBAL VARIABLES LIKE '%innodb_log%';\"",
+          "code": "mysql -e \"SHOW GLOBAL VARIABLES LIKE '%innodb%';\"",
           "enter": true
         }
       ]

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rolflobker/snux/main/snux-schema.json",
+  "snippets": [
+    {
+      "title": "nfs: dump NFS connected clients to list and output on screen",
+      "description": "see title",
+      "tags": ["nfs"],
+      "commands": [
+        {
+          "action": "send-to-pane",
+          "code": "cat /proc/fs/nfsd/clients/*/info | grep address > ./nfs_clients && cat ./nfs_clients",
+          "enter": true
+        }
+      ]
+    }
+  ]
+}
